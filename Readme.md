@@ -5,6 +5,13 @@
 ### Docker
 Docker es el software de TI, es una tecnología de creación de contenedores que permite la creación y el uso de contenedores de Linux®. Con docker, puede usar los contenedores como máquinas virtuales extremadamente livianas y modulares.
 
+### AWS
+AWS o Amazon Web Services es un proveedor de servicios en la nube, por ejemplo servicios de almacenamiento, de recursos de computación, de aplicaciones, bases de datos, etc.
+
+
+### EC2
+Amazon Elastic Compute Cloud (EC2) es un servicio de cómputo en la nube de AWS que permite a los usuarios lanzar y administrar servidores virtuales escalables, conocidos como instancias, en la nube. Estas instancias pueden ejecutar una variedad de sistemas operativos y aplicaciones, y se utilizan para alojar aplicaciones, sitios web y otros recursos informáticos en la nube.
+
 
 ## Pre-requisitos
 
@@ -14,7 +21,7 @@ Debe tener instalado lo siguiente:
 * [JAVA 8](https://www.java.com/es/download/)
 * [MAVEN](https://maven.apache.org)
 * [DOCKER](https://www.docker.com/)
-* **DOCKER-COMPOSE** - Viene incluido en Docker Desktop, sin embargo si no lo tiene, puede ver como instalarlo [AQUI](https://docs.docker.com/compose/install/).
+* **DOCKER-COMPOSE** - Viene incluido en Docker Desktop, sin embargo si no lo tiene, puede ver como instalarlo [AQUÍ](https://docs.docker.com/compose/install/).
 
 ## Compilación
 
@@ -22,7 +29,7 @@ Debe tener instalado lo siguiente:
 
         mvn clean install
 
-* Para compilar el codigo fuente únicamente.
+* Para compilar el código fuente únicamente.
 
         mvn compile
 
@@ -66,7 +73,7 @@ Podemos usar la imagen para construir multiples contenedores y desplegar los ser
     docker run -d -p 34002:6000 --name firstdockercontainer dockersparkprimer
 
 
-Ejecutanto `Docker ps` debería ver algo similar a esto.
+Ejecutando `Docker ps` debería ver algo similar a esto.
 
 ![docker-ps.png](img/docker-ps.png)
 
@@ -108,7 +115,66 @@ Debería ver lo siguiente:
     ![docker-ps-2.png](img/docker-hub-tags.png)
 
 
-## Subir la imagen a DockerHub
+## Desplegar un contenedor en AWS
+
+Para este ejercicio se usara el servicio EC2 de AWS para crear una instancia, acceder a ella y desplegar un contenedor con la imagen que hemos construido.
+
+### Instancia
+
+A continuación se muestran los pasos para crear y acceder a una instancia EC2 de AWS.
+
+1. Acceder a la consola de AWS.
+
+    ![AWS-console.png](img/AWS-console.png)
+
+2. Crear una instancia EC2 (Se recomienda una instancia Amazon Linux y t2 micro para el ejercicio).
+
+    ![EC2.png](img/EC2.png)
+
+*  Importante! crear un par de llaves para acceder a la instancia.
+
+    ![key-pair.png](img/key-pair.png)
+
+3. Una vez creada, accedemos a la instancia con el siguiente comando:
+
+        ssh -i "sparkDockerDemoLive.pem" ec2-user@ec2-54-226-207-197.compute-1.amazonaws.com
+
+
+* Al acceder a la consola se ve lo siguiente:
+
+    ![instance-console.png](img/instance-console.png)
+
+
+###  Desplegando el contenedor en la instancia con docker
+
+1. Instalar Docker.
+
+        sudo yum update -y
+        sudo yum install docker
+
+2. Iniciar servicio de Docker.
+
+        sudo service docker start
+
+3. Configurar usuario en el grupo de docker para no tener que ingresar "sudo" cada vez que invoca un comando.
+
+        sudo usermod -a -G docker ec2-user
+
+4. Ejecutar el siguiente comando para desplegar un contenedor a partir de la imagen subida en dockerhub.
+
+        docker run -d -p 42000:6000 --name firstdockerimageaws ricar8o/firstsprkwebapprepo
+
+
+    ![AWS-docker-deploy.png](img/AWS-docker-deploy.png)
+
+5. Se agrega el puerto en las reglas de entrada del security group de la instancia.
+
+    ![security-group.png](img/security-group.png)
+
+6. Entrar desde el navegador al recurso con el DNS publico de la instancia y el puerto que se abrio en el paso anterior.
+
+    ![aws-docker-hello.png](img/aws-docker-hello.png)
+
 
 ## Autor
 
