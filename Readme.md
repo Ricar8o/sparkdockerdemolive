@@ -171,9 +171,18 @@ A continuación se muestran los pasos para crear y acceder a una instancia EC2 d
 
     ![security-group.png](img/security-group.png)
 
-6. Entrar desde el navegador al recurso con el DNS publico de la instancia y el puerto que se abrio en el paso anterior.
+6. Entrar desde el navegador al recurso con el DNS publico de la instancia y el puerto que se abrió en el paso anterior.
 
     ![aws-docker-hello.png](img/aws-docker-hello.png)
+
+
+### Explicación Arquitectura
+
+- Primero se creo una aplicación en java usando spark para desplegar una ruta llamada `hello` al ejecutar la aplicación.
+- Después se definió un Dockerfile para crear una imagen y ejecutar la aplicación java dentro de un contenedor en Docker y usando el puerto 6000 que fue definido como variable de entorno dentro del Dockerfile.
+- Después se creo una instancia donde se uso la imagen para desplegar un contenedor dentro de la instancia con un tunel entre el puerto 42000 de la instancia y el 6000 del contendedor para que todo el trafico que pase por el puerto 42000 sea dirigido al 6000 del contenedor.
+
+    ![Arquitectura.png](img/Arquitectura.png)
 
 
 ## Autor
