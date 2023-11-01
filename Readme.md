@@ -34,7 +34,7 @@ Debe tener instalado lo siguiente:
 
 **JAVA Windows**
 
-        java -cp target/classestarget/dependency/* co.edu.escuelaing.sparkdockerdemolive.SparkWebServer
+        java -cp target/classes;target/dependency/* co.edu.escuelaing.sparkdockerdemolive.SparkWebServer
 
 Al acceder a la url http://localhost:4567/hello debería ver el siguiente mensaje.
 
@@ -106,6 +106,9 @@ Debería ver lo siguiente:
 7. Al subirse debería verse la imagen cargada en la sección de tags.
 
     ![docker-ps-2.png](img/docker-hub-tags.png)
+
+
+## Subir la imagen a DockerHub
 
 ## Autor
 
