@@ -3,7 +3,7 @@
 ## Conceptos
 
 ### Docker
-Docker es el software de TI, es una tecnología de creación de contenedores que permite la creación y el uso de contenedores de Linux®. Con docker, puede usar los contenedores como máquinas virtuales extremadamente livianas y modulares.
+Docker es una tecnología de creación de contenedores que permite la creación y el uso de contenedores de Linux®. Con docker, puede usar los contenedores como máquinas virtuales extremadamente livianas y modulares.
 
 ### AWS
 AWS o Amazon Web Services es un proveedor de servicios en la nube, por ejemplo servicios de almacenamiento, de recursos de computación, de aplicaciones, bases de datos, etc.
